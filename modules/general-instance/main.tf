@@ -38,7 +38,7 @@ resource "tencentcloud_sqlserver_general_cloud_instance" "this" {
     # period is immutable (provider enforces); API applies its own default.
     # multi_zones cannot be changed after creation.
     # security_group_list is managed by tencentcloud_sqlserver_config_instance_security_groups below.
-    ignore_changes = [period, multi_zones, security_group_list]
+    ignore_changes = [period, multi_zones, security_group_list, resource_tags]
   }
 }
 
