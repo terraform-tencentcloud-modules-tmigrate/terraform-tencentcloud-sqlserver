@@ -130,7 +130,7 @@ variable "time_zone" {
 variable "multi_zones" {
   description = "(Optional, Bool) Deploy across availability zones. Default: false."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "multi_nodes" {
