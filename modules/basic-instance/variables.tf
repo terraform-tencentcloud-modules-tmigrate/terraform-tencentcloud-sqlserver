@@ -29,6 +29,16 @@ variable "sqlserver_instances" {
     period        = optional(number, 1)
 
     tags = optional(map(string), null)
+
+    # SSL 配置（null=不创建，"enable"/"disable"/"renew"）
+    ssl_type = optional(string, null)
+
+    # TDE 实例级配置（null=不创建，"self"/"others"）
+    tde_certificate_attribution = optional(string, null)
+    tde_quote_uin               = optional(string, null)
+
+    # TDE 数据库级配置（null=不创建，传 DB 名称列表即开启加密）
+    tde_db_names = optional(list(string), null)
   }))
-  description = "Map of SQL Server basic instances to create. Each entry supports all attributes of tencentcloud_sqlserver_basic_instance."
+  description = "Map of SQL Server basic instances to create. Each entry supports all attributes of tencentcloud_sqlserver_basic_instance, plus SSL and TDE toggles."
 }
