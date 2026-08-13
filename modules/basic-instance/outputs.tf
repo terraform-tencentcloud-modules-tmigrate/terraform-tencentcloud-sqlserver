@@ -28,12 +28,12 @@ output "instances" {
   description = "Raw instance resources for advanced references."
 }
 
-output "ssl_cert_ids" {
-  value       = { for k, v in tencentcloud_sqlserver_instance_ssl.this : k => v.cert_id }
-  description = "Map of instance keys to SSL certificate IDs (only for instances with ssl_type set)."
+output "ssl_instance_ids" {
+  value       = { for k, v in tencentcloud_sqlserver_instance_ssl.this : k => v.id }
+  description = "Map of instance keys to SSL resource IDs (= instance ID)."
 }
 
-output "tde_cert_ids" {
-  value       = { for k, v in tencentcloud_sqlserver_instance_tde.this : k => v.cert_id }
-  description = "Map of instance keys to TDE certificate IDs (only for instances with tde_certificate_attribution set)."
+output "tde_instance_ids" {
+  value       = { for k, v in tencentcloud_sqlserver_instance_tde.this : k => v.id }
+  description = "Map of instance keys to TDE resource IDs (= instance ID)."
 }
