@@ -1,4 +1,17 @@
 # 1. SQL Server basic instance
+
+locals {
+  instances_with_tde = {
+    for k, v in var.sqlserver_instances : k => v
+    if v.tde_certificate_attribution != null
+  }
+
+  instances_with_db_tde = {
+    for k, v in var.sqlserver_instances : k => v
+    if v.tde_db_names != null
+  }
+}
+
 resource "tencentcloud_sqlserver_basic_instance" "this" {
   for_each = var.sqlserver_instances
 
@@ -49,10 +62,7 @@ resource "tencentcloud_sqlserver_instance_ssl" "this" {
 
 # 3. 实例级 TDE 透明数据加密（tde_certificate_attribution 不为 null 时创建）
 resource "tencentcloud_sqlserver_instance_tde" "this" {
-  for_each = {
-    for k, v in var.sqlserver_instances : k => v
-    if v.tde_certificate_attribution != null
-  }
+  for_each = local.instances_with_tde
 
   instance_id             = tencentcloud_sqlserver_basic_instance.this[each.key].id
   certificate_attribution = each.value.tde_certificate_attribution
@@ -63,10 +73,7 @@ resource "tencentcloud_sqlserver_instance_tde" "this" {
 
 # 4. 数据库级 TDE 加密（tde_db_names 不为 null 时创建）
 resource "tencentcloud_sqlserver_database_tde" "this" {
-  for_each = {
-    for k, v in var.sqlserver_instances : k => v
-    if v.tde_db_names != null
-  }
+  for_each = local.instances_with_db_tde
 
   instance_id = tencentcloud_sqlserver_basic_instance.this[each.key].id
   db_names     = each.value.tde_db_names
