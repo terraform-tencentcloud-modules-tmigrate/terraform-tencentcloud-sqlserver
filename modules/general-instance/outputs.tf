@@ -3,11 +3,6 @@ output "instance_id" {
   value       = var.create ? join("", tencentcloud_sqlserver_general_cloud_instance.this.*.id) : ""
 }
 
-output "vip" {
-  description = "Vip (private access IP) of the SQL Server instance."
-  value       = var.create ? join("", tencentcloud_sqlserver_general_cloud_instance.this.*.vip) : ""
-}
-
 output "name" {
   description = "Name of the SQL Server instance."
   value       = var.create ? join("", tencentcloud_sqlserver_general_cloud_instance.this.*.name) : ""
