@@ -3,6 +3,11 @@ output "instance_id" {
   value       = var.create ? join("", tencentcloud_sqlserver_general_cloud_instance.this.*.id) : ""
 }
 
+output "uid" {
+  description = "Monitoring UID of the SQL Server instance (gamedb.sh*.cdb.db format, for alarm binding)."
+  value       = var.create ? join("", tencentcloud_sqlserver_general_cloud_instance.this.*.uid) : ""
+}
+
 output "name" {
   description = "Name of the SQL Server instance."
   value       = var.create ? join("", tencentcloud_sqlserver_general_cloud_instance.this.*.name) : ""

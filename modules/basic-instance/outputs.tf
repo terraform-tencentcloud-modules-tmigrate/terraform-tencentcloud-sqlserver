@@ -3,6 +3,11 @@ output "instance_ids" {
   description = "Map of instance keys to instance IDs."
 }
 
+output "instance_uids" {
+  value       = { for k, v in tencentcloud_sqlserver_basic_instance.this : k => v.uid }
+  description = "Map of instance keys to monitoring UIDs (gamedb.sh*.cdb.db format, for alarm binding)."
+}
+
 output "instance_vips" {
   value       = { for k, v in tencentcloud_sqlserver_basic_instance.this : k => v.vip }
   description = "Map of instance keys to private IPs."
